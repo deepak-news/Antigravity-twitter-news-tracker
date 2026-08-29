@@ -111,7 +111,7 @@ newsworthiness_prompt: |
   4. Routine customer support replies.
 
 # Minimum confidence score (1 to 10) to trigger an email alert
-min_confidence_score: 7
+min_confidence_score: 5
 
 # Scraper Settings
 scraper:
