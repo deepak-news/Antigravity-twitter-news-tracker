@@ -1,4 +1,4 @@
-"""Lightweight 100% free real-time tweet feed ingestion engine."""
+"""Lightweight 100% free real-time tweet feed ingestion engine with exact status URL decoding."""
 import hashlib
 import json
 import re
@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 class SyndicationScraper(BaseScraper):
     """
     Ingests real-time tweets via high-availability open syndication feeds and Google News real-time index.
+    Decodes exact https://x.com/<handle>/status/<id> URLs.
     Zero-cookie, zero rate-limits, zero paid API keys, 100% free forever.
     """
     def __init__(self, timeout: int = 15):
@@ -32,7 +33,7 @@ class SyndicationScraper(BaseScraper):
     def fetch_tweets(self, handle: str, limit: int = 5) -> List[Tweet]:
         clean_handle = handle.lstrip("@").strip()
         
-        # Strategy 1: Real-time News Search Syndication Engine (Ultra-reliable, 0 rate-limits)
+        # Strategy 1: Real-time News Search Syndication with exact URL decoding
         try:
             tweets = self._fetch_via_realtime_syndication(clean_handle, limit)
             if tweets:
@@ -51,7 +52,7 @@ class SyndicationScraper(BaseScraper):
         return []
 
     def _fetch_via_realtime_syndication(self, handle: str, limit: int) -> List[Tweet]:
-        """Fetch tweets via real-time search syndication."""
+        """Fetch tweets via real-time search syndication and decode exact status URLs."""
         query = f"site:x.com/{handle}/status OR site:twitter.com/{handle}/status"
         url = f"https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en"
         
@@ -65,7 +66,7 @@ class SyndicationScraper(BaseScraper):
         tweets: List[Tweet] = []
         for item in items[:limit]:
             title = item.find("title").text if item.find("title") else ""
-            link = item.find("link").text if item.find("link") else f"https://x.com/{handle}"
+            raw_link = item.find("link").text if item.find("link") else ""
             pub_date_str = item.find("pubDate").text if item.find("pubDate") else ""
             
             # Clean post text (remove " - x.com" or " - Twitter" suffix)
@@ -73,8 +74,25 @@ class SyndicationScraper(BaseScraper):
             if not clean_text or len(clean_text) < 3:
                 continue
 
-            # Deterministic tweet identifier
-            tweet_id = hashlib.md5(f"{handle.lower()}_{clean_text}".encode()).hexdigest()[:16]
+            # Decode exact tweet URL
+            exact_url = f"https://x.com/{handle}"
+            tweet_id = None
+
+            if raw_link:
+                try:
+                    from googlenewsdecoder import gnewsdecoder
+                    decode_res = gnewsdecoder(raw_link)
+                    if decode_res.get("status") and decode_res.get("decoded_url"):
+                        exact_url = decode_res.get("decoded_url")
+                        # Extract exact tweet status ID from URL
+                        match = re.search(r"/status/(\d+)", exact_url)
+                        if match:
+                            tweet_id = match.group(1)
+                except Exception as ex:
+                    logger.debug(f"Decoder error: {ex}")
+
+            if not tweet_id:
+                tweet_id = hashlib.md5(f"{handle.lower()}_{clean_text}".encode()).hexdigest()[:16]
 
             posted_at = None
             if pub_date_str:
@@ -87,7 +105,7 @@ class SyndicationScraper(BaseScraper):
                 id=tweet_id,
                 handle=handle,
                 text=clean_text,
-                url=f"https://x.com/{handle}",
+                url=exact_url,
                 posted_at=posted_at
             ))
 
