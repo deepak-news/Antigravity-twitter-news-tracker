@@ -1,7 +1,87 @@
 {
-  "last_updated": "2026-08-29T06:39:15.010386+00:00",
-  "total_seen": 4,
+  "last_updated": "2026-08-29T07:37:44.248298+00:00",
+  "total_seen": 14,
   "tweets": [
+    {
+      "id": "e34f71871c1b9474",
+      "handle": "openai",
+      "is_newsworthy": 1,
+      "confidence_score": 9,
+      "emailed_at": "2026-08-29T07:37:44.244711+00:00",
+      "created_at": "2026-08-29T07:37:44.244800+00:00"
+    },
+    {
+      "id": "c80c2d1301591555",
+      "handle": "openai",
+      "is_newsworthy": 1,
+      "confidence_score": 10,
+      "emailed_at": "2026-08-29T07:37:33.266797+00:00",
+      "created_at": "2026-08-29T07:37:33.267019+00:00"
+    },
+    {
+      "id": "19a0164b8100de8d",
+      "handle": "svembu",
+      "is_newsworthy": 0,
+      "confidence_score": 10,
+      "emailed_at": null,
+      "created_at": "2026-08-29T07:37:25.889171+00:00"
+    },
+    {
+      "id": "fa6b80ffa2c26a90",
+      "handle": "svembu",
+      "is_newsworthy": 0,
+      "confidence_score": 9,
+      "emailed_at": null,
+      "created_at": "2026-08-29T07:37:21.310880+00:00"
+    },
+    {
+      "id": "296463a48a8aeba8",
+      "handle": "ashwinivaishnaw",
+      "is_newsworthy": 1,
+      "confidence_score": 9,
+      "emailed_at": "2026-08-29T07:37:13.135686+00:00",
+      "created_at": "2026-08-29T07:37:13.135814+00:00"
+    },
+    {
+      "id": "8de9ee597dd563d0",
+      "handle": "ashwinivaishnaw",
+      "is_newsworthy": 0,
+      "confidence_score": 9,
+      "emailed_at": null,
+      "created_at": "2026-08-29T07:36:59.837699+00:00"
+    },
+    {
+      "id": "c560edf10154c900",
+      "handle": "deepigoyal",
+      "is_newsworthy": 1,
+      "confidence_score": 9,
+      "emailed_at": "2026-08-29T07:36:52.071744+00:00",
+      "created_at": "2026-08-29T07:36:52.071846+00:00"
+    },
+    {
+      "id": "38f53090152e3276",
+      "handle": "deepigoyal",
+      "is_newsworthy": 0,
+      "confidence_score": 10,
+      "emailed_at": null,
+      "created_at": "2026-08-29T07:36:43.224988+00:00"
+    },
+    {
+      "id": "29c8aeebc6f0c3e3",
+      "handle": "sama",
+      "is_newsworthy": 0,
+      "confidence_score": 9,
+      "emailed_at": null,
+      "created_at": "2026-08-29T07:36:32.807830+00:00"
+    },
+    {
+      "id": "c77c64f05632b02e",
+      "handle": "sama",
+      "is_newsworthy": 1,
+      "confidence_score": 8,
+      "emailed_at": "2026-08-29T07:36:28.513035+00:00",
+      "created_at": "2026-08-29T07:36:28.513507+00:00"
+    },
     {
       "id": "sim-004",
       "handle": "karpathy",
