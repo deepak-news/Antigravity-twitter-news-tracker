@@ -26,6 +26,14 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
+      - name: Restore Tracker State Cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data/state.json
+          key: tracker-state-${{ github.run_id }}
+          restore-keys: |
+            tracker-state-
+
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
@@ -40,11 +48,19 @@ jobs:
         run: |
           python run_once.py
 
+      - name: Save Tracker State Cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: data/state.json
+          key: tracker-state-${{ github.run_id }}
+
       - name: Commit & Push Updated State
+        continue-on-error: true
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           if [ -f data/state.json ]; then
             git add data/state.json
-            git diff --staged --quiet || (git commit -m "Auto-update processed tweet state [skip ci]" && git push)
+            git diff --staged --quiet || (git commit -m "Auto-update processed tweet state [skip ci]" && git push origin main) || true
           fi
