@@ -1,63 +1,133 @@
 # ==============================================================================
-# TWITTER NEWS TRACKER - 24/7 CONFIGURATION
+# TWITTER NEWS TRACKER - PTI TECH & IT BEAT CONFIGURATION
 # ==============================================================================
 
 # List of Twitter/X handles to monitor 24/7 (without '@')
 tracked_accounts:
-  - sama
+  # --- Global Tech CEOs & Leadership ---
   - elonmusk
+  - sama
+  - satyanadella
+  - sundarpichai
+  - zuck
+  - ajassy
+  - tim_cook
+  - CristianoAmon
+  - LisaSu
+  - JeffBezos
+  - DarioAmodei
+  - demishassabis
   - karpathy
+  - ylecun
+  - gdb
+  - ilyasut
+
+  # --- Semiconductors & Hardware ---
+  - nvidia
+  - AMD
+  - Intel
+  - Qualcomm
+  - Arm
+  - ASML
+  - MicronTechnology
+  - TSMC
+
+  # --- Indian Tech Founders & CEOs ---
+  - svembu
+  - vijayshekhar
+  - kunalb11
+  - deepigoyal
+  - albinder
+  - aaditpalicha
+  - bhash
+  - Nithin0dha
+  - nikhilkamathcio
+  - AnupamMittal
+  - NandanNilekani
+  - salilparekh
+  - riteshagar
+  - BhavinTurakhia
+  - kiranshaw
+  - RonnieScrewvala
+  - majety
+  - anandmahindra
+  - sbikh
+  - ViditAatrey
+  - kunalbahl
+  - harshjain85
+  - TarunMehta
+  - rishadpremji
+
+  # --- Indian Government & Policy ---
+  - AshwiniVaishnaw
+  - GoI_MeitY
+  - PIB_India
+  - nasscom
+
+  # --- Indian Tech Companies & IT Services ---
+  - Infosys
+  - Wipro
+  - HCLTech
+  - TCS
+  - Tech_Mahindra
+  - LTIMindtree
+  - Zoho
+  - Razorpay
+  - PhonePe
+  - zomato
+  - swiggy
+  - blinkit
+  - paytm
+  - CRED_club
+  - SarvamAI
+  - Krutrim
+
+  # --- Global Tech & AI Companies ---
   - OpenAI
   - AnthropicAI
+  - Google
   - GoogleDeepMind
-  - MetaAI
-  - DemisHassabis
-  - ylecun
+  - Microsoft
+  - Meta
+  - Apple
+  - Amazon
 
-# Global Newsworthiness Criteria Prompt for Gemini Flash
+# Journalistic Newsworthiness Criteria Prompt for Gemini Flash (Tailored for PTI News Beat)
 newsworthiness_prompt: |
-  You are an elite news editor and intelligence analyst.
-  Evaluate whether the following tweet from a monitored high-profile account contains genuinely NEWSWORTHY information.
+  You are an expert news editor and wire intelligence analyst for PTI (Press Trust of India) covering the technology, IT services, semiconductor, startups, AI, and policy beats.
 
-  A tweet is considered NEWSWORTHY (is_newsworthy: true) if it communicates:
-  1. Major product launches, new feature releases, AI model releases, breakthroughs, or benchmarks.
-  2. High-impact corporate announcements, mergers, acquisitions, key leadership shifts, or major funding.
-  3. Significant policy decisions, legal/regulatory developments, or industry-defining statements.
-  4. Concrete technological, scientific, or economic milestones with wide public/industry interest.
+  Evaluate whether the following tweet from a tracked high-profile entity or executive contains genuinely NEWSWORTHY wire-grade information.
+
+  A tweet is NEWSWORTHY (is_newsworthy: true) if it involves:
+  1. Business & Financial: Funding rounds, IPO plans, revenue/earnings disclosures, large client deals, acquisitions, mergers, layoffs, or executive leadership appointments/resignations.
+  2. Tech & Product: Major AI model releases, breakthrough benchmarks, new product launches, semiconductor fab/OSAT milestones, or sovereign AI initiatives.
+  3. Policy & Regulation: Govt approvals (e.g. Semiconductor Mission, PLI incentives), data protection rules, antitrust/legal notices, taxation, or official IT ministry decisions.
+  4. Industry Statements: High-impact commentary or stances on industry developments, macroeconomic conditions, or strategic corporate pivots.
 
   A tweet is NOT newsworthy (is_newsworthy: false) if it is:
-  1. Casual conversation, banter, greetings, emojis, or routine social interactions.
-  2. Jokes, memes, philosophical musings, or personal opinions without factual news.
-  3. Routine self-promotion, reposts of old content, or generic hype without concrete details.
-  4. Minor replies or conversational context without independent significance.
+  1. Routine festival/birthday greetings, casual banter, humor, personal wellness or lifestyle thoughts.
+  2. Generic motivation quotes or philosophical musings without factual corporate/industry announcements.
+  3. Vague hype or reposting older marketing videos without fresh announcements.
+  4. Routine customer support replies.
 
-# Minimum confidence score (1 to 10) required to trigger an email alert
-# Only tweets with is_newsworthy: true AND confidence_score >= min_confidence_score will be emailed.
+# Minimum confidence score (1 to 10) to trigger an email alert
 min_confidence_score: 7
 
 # Scraper Settings
 scraper:
-  # Mode: "auto" (tries lightweight syndication first, falls back to Playwright if needed)
-  # Options: "auto", "syndication", "browser"
   mode: "auto"
-  # Max recent tweets to check per account on each cycle
-  max_tweets_per_account: 10
-  # Filter out plain @replies (unless they are quote tweets)
+  max_tweets_per_account: 5
   include_replies: false
-  # Include retweets / reposts
   include_retweets: false
-  # Scraper request timeout in seconds
   timeout_seconds: 20
 
 # Notification Settings
 notifications:
-  subject_prefix: "[NEWS ALERT]"
-  # Fallback recipient list if ALERT_RECIPIENT_EMAILS is not set in .env
-  recipient_emails: []
+  subject_prefix: "[PTI TECH ALERT]"
+  recipient_emails:
+    - deepak.cric.co@gmail.com
 
-# Daemon Settings (for continuous 24/7 VM background runner)
+# Daemon Settings (for continuous 24/7 background runner)
 daemon:
-  # Polling interval in seconds between monitoring cycles (e.g., 600 = 10 minutes)
   poll_interval_seconds: 600
-  # Random jitter in seconds (+/-) added to cycle intervals to prevent rigid bot timing patterns
   jitter_seconds: 45
