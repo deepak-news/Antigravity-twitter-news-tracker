@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+*.db
+.env
+data/tracker.db
+logs/
+.venv/
+env/
+venv/
+node_modules/
+.DS_Store

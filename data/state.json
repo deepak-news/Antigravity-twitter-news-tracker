@@ -1,0 +1,38 @@
+{
+  "last_updated": "2026-08-29T06:39:15.010386+00:00",
+  "total_seen": 4,
+  "tweets": [
+    {
+      "id": "sim-004",
+      "handle": "karpathy",
+      "is_newsworthy": 0,
+      "confidence_score": 2,
+      "emailed_at": null,
+      "created_at": "2026-08-29T06:39:15.009839+00:00"
+    },
+    {
+      "id": "sim-003",
+      "handle": "elonmusk",
+      "is_newsworthy": 1,
+      "confidence_score": 9,
+      "emailed_at": null,
+      "created_at": "2026-08-29T06:39:15.009117+00:00"
+    },
+    {
+      "id": "sim-002",
+      "handle": "sama",
+      "is_newsworthy": 0,
+      "confidence_score": 2,
+      "emailed_at": null,
+      "created_at": "2026-08-29T06:39:15.007963+00:00"
+    },
+    {
+      "id": "sim-001",
+      "handle": "sama",
+      "is_newsworthy": 1,
+      "confidence_score": 10,
+      "emailed_at": null,
+      "created_at": "2026-08-29T06:39:15.007021+00:00"
+    }
+  ]
+}

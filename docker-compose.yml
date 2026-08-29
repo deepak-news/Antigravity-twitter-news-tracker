@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  twitter-tracker:
+    build: .
+    container_name: twitter-news-tracker
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./config.yaml:/app/config.yaml
